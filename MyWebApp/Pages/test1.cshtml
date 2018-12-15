@@ -1,0 +1,16 @@
+@page
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+
+<h1>Hi Test 1</h1>
+
+<p>This is a page a t /Test1/</p>
+<p>Current time: @DateTime.Now</p>
+@{
+    var i = 2 + 2;
+}
+<p>Operation: @i </p>
+
+
+<p>Configuration Message: @Configuration["Message"]</p>

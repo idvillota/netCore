@@ -8,24 +8,22 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace netCore
+namespace MyWebApp
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; set; }
+        public Microsoft.Extensions.Configuration.IConfiguration Configuration { get; set; }
 
-
-        public Startup()
+        public Startup(Microsoft.Extensions.Configuration.IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-                            .AddJsonFile("AppSettings.json");
-            Configuration = builder.Build();
+            Configuration = configuration;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,12 +34,12 @@ namespace netCore
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMvc();
+
             app.Run(async (context) =>
             {
-                var message = Configuration["Message"];
-                await context.Response.WriteAsync(message);
+                await context.Response.WriteAsync("IDV Greetings!");
             });
-
         }
     }
 }
